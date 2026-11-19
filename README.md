@@ -4,8 +4,6 @@ In this project, we deploy a **secure and highly available 3-tier web architectu
 
 Let's go! 🚀
 
----
-
 ## Architecture Diagram
 
 ![AWS 3-Tier Architecture](Architecture/Architecture.png)
@@ -73,6 +71,8 @@ EC2 → NAT Gateway → Internet
 ### Step 1: Create a Custom VPC
 
 Create a custom VPC with the CIDR block `10.0.0.0/16`. This is the isolated network that holds all three tiers.
+
+![AWS 3-Tier Architecture](Architecture/Architecture.png)
 
 ### Step 2: Create Public and Private Subnets
 
