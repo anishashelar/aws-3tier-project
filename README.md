@@ -45,7 +45,7 @@ The application is deployed using a custom VPC with public and private subnets a
 
 ## Architecture Diagram
 
-![AWS 3-Tier Architecture](architecture.png)
+![AWS 3-Tier Architecture](Architecture/Architecture.png)
 
 
 ## Traffic Flow
