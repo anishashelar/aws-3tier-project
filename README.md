@@ -2,7 +2,6 @@
 
 In this project, we deploy a **secure and highly available 3-tier web architecture** on AWS. The application runs inside a custom VPC with public and private subnets spread across two Availability Zones, giving us high availability and fault tolerance.
 
-Let's go! 🚀
 
 ## Architecture Diagram
 
@@ -47,7 +46,8 @@ EC2 → NAT Gateway → Internet
 
 - Application Load Balancer (ALB)
 - Accepts HTTP/HTTPS traffic from the Internet
-- Distributes traffic across multiple EC2 instances
+- Distributes incoming requests across application-tier EC2 instances
+- Performs health checks and forwards traffic only to healthy instances
 
 ### Application Tier (Private Layer)
 
@@ -72,7 +72,7 @@ EC2 → NAT Gateway → Internet
 
 Create a custom VPC with the CIDR block `10.0.0.0/16`. This is the isolated network that holds all three tiers.
 
-![AWS 3-Tier Architecture](Architecture/Architecture.png)
+![AWS 3-Tier Architecture] (Screenshots/6.Loadbalancer/target group healthy.png)
 
 ### Step 2: Create Public and Private Subnets
 
@@ -90,7 +90,7 @@ Create an Internet Gateway, attach it to the VPC, and add a route in the public 
 
 ### Step 4: Configure the NAT Gateway
 
-Create a NAT Gateway in a public subnet and add a route to it in the private route table. This lets the EC2 instances in private subnets make outbound requests (for updates and packages) without being reachable from the Internet.
+Create a NAT Gateway in a public subnet and add a route to it in the private route table. This allows EC2 instances in private subnets to initiate outbound internet connections for updates and package downloads, without allowing unsolicited inbound internet connections.
 
 ### Step 5: Create Security Groups
 
@@ -126,7 +126,7 @@ Create a Target Group, register it with the ALB listener, and attach it to the A
 
 **Screenshot: Target Group Health**
 
-![Target Group Health](Screenshots/6.Loadbalancer/target group healthy.png)
+![Target Group Health](Screenshots/6.Loadbalancer/target%20group%20healthy.png)
 
 > All targets show a **healthy** status, which confirms the ALB can reach the EC2 instances in the private subnets.
 
@@ -136,7 +136,7 @@ Launch an RDS MySQL instance with **Multi-AZ** enabled in the private database s
 
 **Screenshot: RDS Configuration**
 
-![RDS Multi-AZ](Screenshots/8.Output/RDS working.png)
+![RDS Multi-AZ](Screenshots/8.Output/RDS%20working.png)
 
 > Multi-AZ is enabled (primary in AZ1, standby in AZ2) and the database is not publicly accessible.
 
@@ -146,7 +146,7 @@ Copy the DNS name of the Application Load Balancer, paste it into a browser, and
 
 **Screenshot: Application Output**
 
-![Application Output](Screenshots/8.Output/working website.png)
+![Application Output](Screenshots/8.Output/working%20website.png)
 
 > The application is reachable through the ALB DNS name and served by the EC2 instances in the private subnets. It works! 🚀
 
